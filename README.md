@@ -1,4 +1,4 @@
-# Phish-Me-Not
+# Phish-Me-Not : Employee Phishing Simulator
 This project aims at training/educating employees about real-life phishing attack scenarios by carrying out simulated spear-phishing attack.
 
 ### Implementation Instructions
