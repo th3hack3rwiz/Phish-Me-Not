@@ -6,7 +6,7 @@ import os
 from email.message import EmailMessage
 from tkinter import *
 
-###subprocess.call("<path to 'configure-phishing-simulator.sh'>")
+subprocess.call("XXXX")
 
 with open ("ngrokURL","r") as f:	# reading victim_url to include in the mail
 	victim_url = f.read()
@@ -149,7 +149,7 @@ for emp in range(len(email)):
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
 		smtp.send_message(msg)
 
-###subprocess.call("<path to - 'retrieve-phished-employee-intel.sh'")
+subprocess.call("YYYY")
 
 with open ("results.txt","r") as results_table:
 	IP = []
