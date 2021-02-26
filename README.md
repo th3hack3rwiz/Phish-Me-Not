@@ -3,7 +3,7 @@
 # Phish-Me-Not : Employee Phishing Simulator
 This project aims at training/educating employees about real-life phishing attack scenarios by carrying out simulated spear-phishing attack.
 
-### Important Instructions
+### Installation Instructions
 
 1. Clone the directory: git clone https://github.com/th3hack3rwiz/Phish-Me-Not.git
 2. Install and configure NGROK and check if it works normally.
