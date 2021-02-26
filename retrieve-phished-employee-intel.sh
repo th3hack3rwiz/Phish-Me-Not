@@ -60,7 +60,7 @@ while true; do
 		  rm ngrokURL > /dev/null 2>&1
 		  rm ngrok.log > /dev/null 2>&1
 		  echo -e "\n${RED}[-] Terminating Simulator...${CYAN}"
-		  sed -i "s#${x}#REPLACE_ME#g" /var/www/html/index.html
+		  sudo sed -i "s#${x}#REPLACE_ME#g" /var/www/html/index.html
 		  killall -9 ngrok &>/dev/null
 		  exit
 	 fi
