@@ -5,7 +5,7 @@ This project aims at training/educating employees about real-life phishing attac
 
 ### Installation Instructions
 
-1. Clone the directory: git clone https://github.com/th3hack3rwiz/Phish-Me-Not.git
+1. Clone this repository: git clone https://github.com/th3hack3rwiz/Phish-Me-Not.git
 2. Install and configure NGROK and check if it works normally.
 3. Install Golang and configure GOPATH.
 4. Run : chmod +x install.sh ; ./install.sh
