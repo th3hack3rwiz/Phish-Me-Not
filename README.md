@@ -1,3 +1,5 @@
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/logo2.PNG)
+
 # Phish-Me-Not : Employee Phishing Simulator
 This project aims at training/educating employees about real-life phishing attack scenarios by carrying out simulated spear-phishing attack.
 
@@ -16,8 +18,28 @@ https://www.google.com/settings/security/lesssecureapps
 
 python3 phish-me-not.py
 
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/Logo1.PNG)
+
 ### Implementation
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/1.PNG)
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/A.PNG)
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/2.PNG)
+#### The "Employee-Specific" Phishing Email: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/phishing-email.PNG)
+
+#### The employee who falls prey to the phishing attack is redirected from a malicious page to the following image:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/phishing-redirect.PNG)
+
+#### We refresh the logs to check for any new victim employees:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/B.PNG)
+
+#### The employees who fall prey to this simulated attack are then sent a "phishing awareness email":
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/C.PNG)
+
+#### The Awareness Email:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/awareness-email.PNG)
