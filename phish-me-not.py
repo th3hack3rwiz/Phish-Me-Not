@@ -24,6 +24,25 @@ if choice == 'y':
 	root.geometry("430x200+630+350")
 	bg= PhotoImage(file="background.png")   #define bg image    
 
+	#create a canvas
+	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
+	my_canvas.pack(fill="both", expand=True)
+
+	#set image in canvas
+	my_canvas.create_image(0,0, image=bg, anchor="nw")
+	my_canvas.create_text(220,80, text="Welcome to", font=("Helvetica", 24,'bold'), fill="white")
+	my_canvas.create_text(220,120, text="Phish-Me-Not", font=("Helvetica", 24,'bold'), fill="white")
+
+	def destroy():
+		root.destroy()
+	root.after(2000, destroy)
+	root.mainloop()
+	
+	root = Tk()
+	root.title('Phish-Me-Not')
+	root.geometry("430x200+630+350")
+	bg= PhotoImage(file="background.png")   #define bg image    
+
 	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
 	my_canvas.pack(fill="both", expand=True)
 
