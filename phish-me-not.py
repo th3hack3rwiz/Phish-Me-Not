@@ -5,6 +5,7 @@ import smtplib
 import os
 from email.message import EmailMessage
 from tkinter import *
+from tkinter import filedialog  # import filedialog module
 
 subprocess.call("XXXX")
 
@@ -15,6 +16,7 @@ EMAIL_ADDRESS = os.environ.get('EMAILID')
 EMAIL_PASS = os.environ.get('PASS')
 
 print ("\n")
+path='employee-table.txt'
 choice = input("[?] Do you want to create an employee-table?(y/n): ")
 if choice == 'y':
 	root = Tk()
@@ -22,32 +24,12 @@ if choice == 'y':
 	root.geometry("430x200+630+350")
 	bg= PhotoImage(file="background.png")   #define bg image    
 
-	#create a canvas
 	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
 	my_canvas.pack(fill="both", expand=True)
 
 	#set image in canvas
 	my_canvas.create_image(0,0, image=bg, anchor="nw")
-	my_canvas.create_text(220,80, text="Welcome to", font=("Helvetica", 24,'bold'), fill="white")
-	my_canvas.create_text(220,120, text="Phish-Me-Not", font=("Helvetica", 24,'bold'), fill="white")
-
-	def destroy():
-		root.destroy()
-	root.after(2000, destroy)
-	root.mainloop()
-
-	root = Tk()
-	root.title('Phish-Me-Not')
-	root.geometry("430x200+630+350")
-	bg= PhotoImage(file="background.png")   #define bg image    
-
-	#create a canvas
-	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
-	my_canvas.pack(fill="both", expand=True)
-
-	#set image in canvas
-	my_canvas.create_image(0,0, image=bg, anchor="nw")
-	my_canvas.create_text(220,40, text="Enter number of employees:", font=("Helvetica", 13,'bold'), fill="white")
+	my_canvas.create_text(220,40, text="Enter number of employees:", font=("Helvetica", 16,'bold'), fill="white")
 
 
 
@@ -59,19 +41,20 @@ if choice == 'y':
 	    global noe
 	    noe=entry1.get()
 	    root.destroy()
-	button1=Button(root, text="Done",font=("times",12),width=5,padx=15, pady=7, fg='white', bg='black', bd=0, command=myClick)
-	button1_window = my_canvas.create_window(190,120,anchor='nw', window=button1)
+	button1=Button(root, text="Done",font=("times",15),width=5,padx=15, pady=7, fg='white', bg='black', bd=0, command=myClick)
+	button1_window = my_canvas.create_window(183,120,anchor='nw', window=button1)
 
 	#root.bind('<Configure>',resizer)
 	root.mainloop()
 	file = open("employee-table.txt", "w")
+	#path='employee_table.txt'
 	file.write("Name Email IP_Address Recent_Project\n")
 	for i in range(0,int(noe)):
 	    root = Tk()
 	    root.title('Phish-Me-Not')
 	    root.geometry("430x200+630+350")
 	    bg= PhotoImage(file="background.png")   #define bg image    
-
+	   
 	    #create a canvas
 	    my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
 	    my_canvas.pack(fill="both", expand=True)
@@ -106,17 +89,67 @@ if choice == 'y':
 	        file.write(" "+project.replace(" ","_")+"\n")
 	        root.destroy()
 	    if(int(i)==int(noe)-1):
-	        button1=Button(root, text="Finish",font=("times",10),width=5, fg='white', bg='black', bd=0, command=myClick)
+	        button1=Button(root, text="Finish",font=("times",15),width=5, fg='white', bg='black', bd=0, command=myClick)
 	        button1_window = my_canvas.create_window(250,150,anchor='nw', window=button1)
 	    else:
-	        button1=Button(root, text="Next",font=("times",10),width=5, fg='white', bg='black', bd=0, command=myClick)
+	        button1=Button(root, text="Next",font=("times",15),width=5, fg='white', bg='black', bd=0, command=myClick)
 	        button1_window = my_canvas.create_window(250,150,anchor='nw', window=button1)
 	    
 	    #root.bind('<Configure>',resizer)
 	    root.mainloop() 
 	file.close()
+else:
+	root = Tk()
+	root.title('Phish-Me-Not')
+	root.geometry("430x200+630+350")
+	bg= PhotoImage(file="background.png")   #define bg image    
+
+	#create a canvas
+	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
+	my_canvas.pack(fill="both", expand=True)
+
+	#set image in canvas
+	my_canvas.create_image(0,0, image=bg, anchor="nw")
+	my_canvas.create_text(220,80, text="Welcome to", font=("Helvetica", 24,'bold'), fill="white")
+	my_canvas.create_text(220,120, text="Phish-Me-Not", font=("Helvetica", 24,'bold'), fill="white")
+
+	def destroy():
+	  root.destroy()
+	root.after(2000, destroy)
+	root.mainloop()  
+	# Function for opening the 
+	# file explorer window
+
+	def browseFiles():
+	    path = filedialog.askopenfilename(initialdir = "/", title = "Select a File", filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
+	    root.destroy()
+
+	root = Tk()
+	root.title('Select file')
+	root.geometry("430x200+630+350")
+	bg= PhotoImage(file="background.png")    
+
+	#create a canvas
+	my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
+	my_canvas.pack(fill="both", expand=True)
+
+	#set image in canvas
+	my_canvas.create_image(0,0, image=bg, anchor="nw")
+	  
+	# Create a File Explorer label
+	#label_file_explorer = Label(root, text = "", width = 100, height = 4, fg = "blue")
+	my_canvas.create_text(220,60, text='Choose "Employee-Table" Location', font=("Helvetica",18,'bold'), fill="white")
+	#label_file_explorer.grid(column = 1, row = 1)
+
+	#button_explore = Button(window, text = "Browse Files", command = browseFiles) 
+	button_explore=Button(root, text="Browse Files",font=("times",15),width=5,padx=40, pady=10, fg='white', bg='black', bd=0, command=browseFiles)
+	button_explore_window = my_canvas.create_window(150,100,anchor='nw', window=button_explore)
+
+	root.mainloop()
+
+
 print ("\n")
-with open ("employee-table.txt","r") as employee_table:
+with open (path,"r") as employee_table:
 	email=[]
 	name=[]
 	ip=[]
