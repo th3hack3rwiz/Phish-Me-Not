@@ -205,39 +205,39 @@ for emp in range(len(email)):
 subprocess.call("YYYY")
 
 IP = []
-	Port = []
-	Country = []
-	State = []
-	City = []
-	Latitude = []
-	Longitude = []
-	Zip_Code = []
-	Time_Zone = []
-	ISP = []
-	Domain = []
-	Is_Proxy = []
-	Proxy_Type = []
-	Victim_Employee = []
-	Geo_URL = []
+Port = []
+Country = []
+State = []
+City = []
+Latitude = []
+Longitude = []
+Zip_Code = []
+Time_Zone = []
+ISP = []
+Domain = []
+Is_Proxy = []
+Proxy_Type = []
+Victim_Employee = []
+Geo_URL = []
 
-	for j in results_table:
-		result_data=results_table.readlines()[:]
-		for phished_employee in result_data:
-			Victim_Employee.append(phished_employee.strip().split()[0])
-			IP.append(phished_employee.strip().split()[1])
-			Port.append(phished_employee.strip().split()[2])
-			Country.append(phished_employee.strip().split()[3])
-			State.append(phished_employee.strip().split()[4])
-			City.append(phished_employee.strip().split()[5])
-			Latitude.append(phished_employee.strip().split()[6])
-			Longitude.append(phished_employee.strip().split()[7])
-			Zip_Code.append(phished_employee.strip().split()[8])
-			Time_Zone.append(phished_employee.strip().split()[9])
-			ISP.append(phished_employee.strip().split()[10])
-			Domain.append(phished_employee.strip().split()[11])
-			Is_Proxy.append(phished_employee.strip().split()[12])
-			Proxy_Type.append(phished_employee.strip().split()[13])
-			Geo_URL.append(phished_employee.strip().split()[14])
+for j in results_table:
+	result_data=results_table.readlines()[:]
+	for phished_employee in result_data:
+		Victim_Employee.append(phished_employee.strip().split()[0])
+		IP.append(phished_employee.strip().split()[1])
+		Port.append(phished_employee.strip().split()[2])
+		Country.append(phished_employee.strip().split()[3])
+		State.append(phished_employee.strip().split()[4])
+		City.append(phished_employee.strip().split()[5])
+		Latitude.append(phished_employee.strip().split()[6])
+		Longitude.append(phished_employee.strip().split()[7])
+		Zip_Code.append(phished_employee.strip().split()[8])
+		Time_Zone.append(phished_employee.strip().split()[9])
+		ISP.append(phished_employee.strip().split()[10])
+		Domain.append(phished_employee.strip().split()[11])
+		Is_Proxy.append(phished_employee.strip().split()[12])
+		Proxy_Type.append(phished_employee.strip().split()[13])
+		Geo_URL.append(phished_employee.strip().split()[14])
 
 victims = []
 for flag_emp in IP:
