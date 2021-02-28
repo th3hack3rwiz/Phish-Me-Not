@@ -203,8 +203,7 @@ for emp in range(len(email)):
 
 subprocess.call("YYYY")
 
-with open ("results.txt","r") as results_table:
-	IP = []
+IP = []
 	Port = []
 	Country = []
 	State = []
@@ -217,23 +216,27 @@ with open ("results.txt","r") as results_table:
 	Domain = []
 	Is_Proxy = []
 	Proxy_Type = []
-	
+	Victim_Employee = []
+	Geo_URL = []
+
 	for j in results_table:
 		result_data=results_table.readlines()[:]
 		for phished_employee in result_data:
-			IP.append(phished_employee.strip().split()[0])
-			Port.append(phished_employee.strip().split()[1])
-			Country.append(phished_employee.strip().split()[2])
-			State.append(phished_employee.strip().split()[3])
-			City.append(phished_employee.strip().split()[4])
-			Latitude.append(phished_employee.strip().split()[5])
-			Longitude.append(phished_employee.strip().split()[6])
-			Zip_Code.append(phished_employee.strip().split()[7])
-			Time_Zone.append(phished_employee.strip().split()[8])
-			ISP.append(phished_employee.strip().split()[9])
-			Domain.append(phished_employee.strip().split()[10])
-			Is_Proxy.append(phished_employee.strip().split()[11])
-			Proxy_Type.append(phished_employee.strip().split()[12])
+			Victim_Employee.append(phished_employee.strip().split()[0])
+			IP.append(phished_employee.strip().split()[1])
+			Port.append(phished_employee.strip().split()[2])
+			Country.append(phished_employee.strip().split()[3])
+			State.append(phished_employee.strip().split()[4])
+			City.append(phished_employee.strip().split()[5])
+			Latitude.append(phished_employee.strip().split()[6])
+			Longitude.append(phished_employee.strip().split()[7])
+			Zip_Code.append(phished_employee.strip().split()[8])
+			Time_Zone.append(phished_employee.strip().split()[9])
+			ISP.append(phished_employee.strip().split()[10])
+			Domain.append(phished_employee.strip().split()[11])
+			Is_Proxy.append(phished_employee.strip().split()[12])
+			Proxy_Type.append(phished_employee.strip().split()[13])
+			Geo_URL.append(phished_employee.strip().split()[14])
 
 victims = []
 for flag_emp in IP:
@@ -241,40 +244,34 @@ for flag_emp in IP:
  		victims.append(name[ip.index(flag_emp)].replace("_"," "))
 print ("\n[+] The following employees were phished!")
 print ("\n".join(victims))
-
-with open ("phished-employees","w") as f:
-	f.write("\n".join(victims))
-
-#sending awareness email to phished employees
 print ("\n")
-with open ("phished-employees","r") as f:
-	data=f.readlines()
-	for i in data:
-		i=i.replace(" ","_").strip()
-		print (f'[+] Sending awareness mail to {i.replace("_"," ")}')
 
-		msg = EmailMessage()
-		msg['Subject'] = "URGENT: YOU HAVE BEEN PHISHED!" #subject
-		msg['From'] = EMAIL_ADDRESS
-		msg['To'] = email[name.index(i)]
-		msg.add_alternative("""\
-		<!DOCTYPE html>
-		<html>
-			<body>
-			<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>HR Head</p>
-			</body>
-		</html>
-			""".format(name=i.replace("_"," ")),subtype='html')
+for i in range(len(victims)):
+	victims[i]=victims[i].strip()
+	print (f'[+] Sending awareness mail to {victims[i]}')
 
-		files = ['phishing_awareness_guide.pdf']
-		for i in files:
-			with open (i,'rb') as f:
-				file_data = f.read()
-				file_name = f.name
-			#	print(file_type)
-			msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
+	msg = EmailMessage()
+	msg['Subject'] = "URGENT: YOU HAVE BEEN PHISHED!" #subject
+	msg['From'] = EMAIL_ADDRESS
+	msg['To'] = email[name.index(victims[i].replace(" ","_"))]
+	msg.add_alternative("""\
+	<!DOCTYPE html>
+	<html>
+		<body>
+		<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>HR Head</p>
+		</body>
+	</html>
+		""".format(name=victims[i]),subtype='html')
 
-		with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
-			smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
-			smtp.send_message(msg)
+	files = ['phishing_awareness_guide.pdf']
+	for j in files:
+		with open (j,'rb') as f:
+			file_data = f.read()
+			file_name = f.name
+		#	print(file_type)
+		msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
+
+	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
+		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
+		smtp.send_message(msg)
 print ("\n[~] Thank you for using Phish-Me-Not!")
