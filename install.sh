@@ -16,5 +16,6 @@ else
         echo "export PASS='$pass'" >> ~/.bashrc
         source ~/.bashrc
 fi
+sudo pip3 install xlsxwriter --upgrade 
 sudo apt-get install libreoffice
 go get -u github.com/tomnomnom/anew
