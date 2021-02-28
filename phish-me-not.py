@@ -318,7 +318,7 @@ for i in range(len(victims)):
 i=0
 pemp=0
 with open("results.txt", "r") as file: 
-    emplist = file.readlines() 
+    emplist = file.readlines()[1:] 
     for line in emplist: 
         tmplist = line.rstrip('\n').split(' ') 
         emplist[i]=tmplist
