@@ -6,7 +6,7 @@ GREEN='\e[38;5;46m'
 GOLD='\e[38;5;226m'
 GREY='\033[0;37m'
 echo -e "${GOLD}${BOLD}$(figlet -f slant  PHISH-ME-NOT!)"
-echo -e "${RED}${BOLD}\t\t\t\t\tThis is not a drill."
+echo -e "${RED}${BOLD}\t\t\t\t-Employee Phishing Simulator."
 echo -e "${GREEN}[+] Starting Apache server"
 service apache2 start
 echo -e "${GREEN}[+] Hosting local server on the internet through NGROK"
