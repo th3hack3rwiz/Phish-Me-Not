@@ -277,38 +277,16 @@ for i in range(len(victims)):
 	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
 		smtp.send_message(msg)
+
+
 print ("\n[+] Generating Results")
 workbook = xlsxwriter.Workbook('results.xlsx') 
-worksheet = workbook.add_worksheet() 
-bold = workbook.add_format({'bold': 1}) 
-  
-# create a data list . 
-headings = ['Victim Employee', 'IP','Port','Country','State','City','Latitude','Longitude','Zip Code','Time Zone','ISP','Domain','Is_Proxy?','Proxy Type','Geo_URL'] 
-worksheet.write_row('A1', headings, bold) 
-  
-# Write a column of data starting from 
-# A2, B2, C2 respectively. 
-i=0
-with open("results.txt", "r") as file: 
-    emplist = file.readlines()
-    for line in emplist: 
-        tmplist = line.strip().split(' ')
-        emplist[i]=tmplist
-        worksheet.write_row('A'+str(i+2), tmplist)
-        i+=1
- 
-workbook.close()
-	       
-print ("[+] Generating Pie-Chart")
-workbook = xlsxwriter.Workbook('phished_employee_piechart.xlsx') 
-worksheet = workbook.add_worksheet() 
+worksheet1 = workbook.add_worksheet() 
 bold = workbook.add_format({'bold': 1}) 
   
 # create a data list . 
 headings1 = ['Name', 'Phished'] 
-worksheet.write_row('A1', headings1, bold)
-
-#victims list already present
+worksheet1.write_row('A1', headings1, bold)
 
 phishedemp=[]
 phishedemp.extend(victims)
@@ -324,22 +302,23 @@ with open("employee-table.txt", "r") as file:
         emplist[i]=tmplist
         if emplist[i][0] in phishedemp:
             lst=[emplist[i][0],'YES']
-            worksheet.write_row('A'+str(i+2), lst)
+            worksheet1.write_row('A'+str(i+2), lst)
             pemp+=1
         else:
             lst=[emplist[i][0],'NO']
-            worksheet.write_row('A'+str(i+2), lst)
+            worksheet1.write_row('A'+str(i+2), lst)
         i+=1
 totalemp=len(name)
 typelabel=['Phished','Not phished']
 no=[pemp,totalemp-pemp]
 per=[str((pemp/totalemp)*100),str((totalemp-pemp)/totalemp*100)]
 headings2 = ['Type', 'No. of employees','Percentage'] 
-worksheet.write_row('D1', headings2, bold)
-worksheet.write_column('D2', typelabel)
-worksheet.write_column('E2', no)
-worksheet.write_column('F2', per)
+worksheet1.write_row('D1', headings2, bold)
+worksheet1.write_column('D2', typelabel)
+worksheet1.write_column('E2', no)
+worksheet1.write_column('F2', per)
 
+print ("[+] Generating Pie-Chart")
 chart = workbook.add_chart({'type': 'pie'})
 chart.add_series({'name':'Percentage Phished', 
         'categories': ['Sheet1', 1, 3, 2, 3],   
@@ -347,7 +326,30 @@ chart.add_series({'name':'Percentage Phished',
         'data_labels': {'percentage': True}})
 chart.set_title({'name': 'Percentage Phished'})
 chart.set_style(10)
-worksheet.insert_chart('D6', chart, {'x_offset': 25, 'y_offset': 10})
+worksheet1.insert_chart('D6', chart, {'x_offset': 25, 'y_offset': 10})
+ 
+worksheet2 = workbook.add_worksheet() 
+bold = workbook.add_format({'bold': 1}) 
+  
+# create a data list . 
+headings = ['Victim Employee', 'IP','Port','Country','State','City','Latitude','Longitude','Zip Code','Time Zone','ISP','Domain','Is_Proxy?','Proxy Type','Geo_URL'] 
+worksheet2.write_row('A1', headings, bold) 
+  
+# Write a column of data starting from 
+# A2, B2, C2 respectively. 
+i=0
+with open("results.txt", "r") as file: 
+    emplist = file.readlines()[1:]
+    for line in emplist: 
+        tmplist = line.strip().split(' ')
+        emplist[i]=tmplist
+        worksheet2.write_row('A'+str(i+2), tmplist)
+        i+=1
+ 
 workbook.close()
 
 print ("\n[~] Thank you for using Phish-Me-Not!")
+
+time.sleep(1.5)
+
+subprocess.call(['libreoffice','results.xlsx'])
