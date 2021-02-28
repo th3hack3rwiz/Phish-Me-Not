@@ -16,4 +16,5 @@ else
         echo "export PASS='$pass'" >> ~/.bashrc
         source ~/.bashrc
 fi
+sudo apt-get install libreoffice
 go get -u github.com/tomnomnom/anew
