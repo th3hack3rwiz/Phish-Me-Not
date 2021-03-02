@@ -8,8 +8,9 @@ This project aims at training/educating employees about real-life phishing attac
 1. Clone this repository: git clone https://github.com/th3hack3rwiz/Phish-Me-Not.git
 2. Install and configure NGROK and check if it works normally.
 3. Install Golang and configure GOPATH.
-4. Run : chmod +x install.sh ; ./install.sh
-5. Note: If you wish to use a gmail account to send phishing emails, then go to this link while you're logged in to your google account, and allow the access:
+4. Install python3 and pip3.
+5. Once the aforementioned work is done, now run the command: chmod +x install.sh ; ./install.sh
+6. Note: If you wish to use a gmail account to send phishing emails, then go to this link while you're logged in to your google account, and allow the access:
 https://www.google.com/settings/security/lesssecureapps
 
 ### Usage
