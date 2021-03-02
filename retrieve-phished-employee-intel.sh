@@ -1,6 +1,6 @@
 #!/bin/bash
-rm results.txt>/dev/null 2>&1
-rm ips>/dev/null 2>&1
+rm -f results.txt>/dev/null 2>&1
+rm -f ips>/dev/null 2>&1
 RED='\e[38;5;196m'
 GREEN='\e[38;5;46m' 
 GOLD='\e[38;5;226m'
@@ -22,9 +22,9 @@ while true; do
 	 	  fi
 		  while read i; do # to fetch only new IPs info
 		  	ip=$(echo $i | awk '{print $1}')
-			cat employee-table.txt| grep $ip > /dev/null	#can replace employee table with path
+			cat employee_table.txt| grep $ip > /dev/null	#can replace employee table with path
 		  	if [ $? -eq 0 ]; then
-				name=$(cat employee-table.txt| grep $ip | awk '{print $1}')
+				name=$(cat employee_table.txt| grep $ip | awk '{print $1}')
 		 	else name="_" 
 			fi
 		  	port=$(echo $i | awk '{print $2}')
@@ -33,7 +33,9 @@ while true; do
 
 		  	cat test3.html | anew apiProxy > oxy
 		  	proxyType=$(cat oxy | awk 'BEGIN{RS=","}{print $0}' | grep -i proxy | sed 's/"//g' | awk -F: '{print $2}' | sed 's/}//g' | xargs | awk '{print $1}') 
+		  	if [[ -z $proxyType ]]; then proxyType="Not_Fetched!" ; fi 
 		  	isProxy=$(cat oxy | awk 'BEGIN{RS=","}{print $0}' | grep -i proxy | sed 's/"//g' | awk -F: '{print $2}' | sed 's/}//g' | xargs | awk '{print $2}') ; #echo "$proxyType $isProxy"
+			if [[ -z $isProxy ]]; then isProxy="Not_Fetched!" ; fi 
 			echo -e "${GREEN}[+] Updating geo-location and other trivial intel..."
 		  	wget "https://api.ip2location.com/v2/?ip=$ip&key=demo&package=WS24&addon=continent,country,region,city,geotargeting,country_groupings,time_zone_info" --wait=3 -U 'Mozilla/5.0 (X11; Linux i686 (x86_64)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36' --no-http-keep-alive --no-check-certificate --tries=1 -O test4.html > /dev/null 2>&1
 		  	cat test4.html | anew apiGeo-Location > geo
@@ -62,6 +64,7 @@ while true; do
 	 	  rm apiProxy > /dev/null 2>&1
 		  rm ngrokURL > /dev/null 2>&1
 		  rm ngrok.log > /dev/null 2>&1
+		  rm employee_table.txt > /dev/null 2>&1
 		  echo -e "\n${RED}[-] Terminating Simulator...${CYAN}"
 		  sudo sed -i "s#${x}#REPLACE_ME#g" /var/www/html/index.html
 		  killall -9 ngrok &>/dev/null
