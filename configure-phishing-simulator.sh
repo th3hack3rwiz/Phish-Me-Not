@@ -1,6 +1,8 @@
 #!/bin/bash
-rm results.txt>/dev/null 2>&1
-rm ips>/dev/null 2>&1
+clear
+rm -f results.txt > /dev/null 2>&1
+rm -f ips > /dev/null 2>&1
+rm -f results.xlsx > /dev/null 2>&1
 RED='\e[38;5;196m'
 GREEN='\e[38;5;46m' 
 GOLD='\e[38;5;226m'
@@ -12,7 +14,7 @@ service apache2 start
 echo -e "${GREEN}[+] Hosting local server on the internet through NGROK"
 ngrok tcp 80 --log=stdout >log & sleep 7 >/dev/null 2>&1  
 cat log| grep url= | awk -F "=" '{print $8}' >ngrokURL
-rm log
+rm -f log
 sed -i 's/tcp:/http:/g' ngrokURL
 pingb=$(curl pingb.in 2>&1 | cut -d "\"" -f 2 | xargs | sed "s/.*\//\//g" | xargs -I{} echo {})
 url="http://pingb.in$pingb"
