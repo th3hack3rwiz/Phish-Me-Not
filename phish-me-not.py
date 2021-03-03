@@ -309,31 +309,38 @@ with open(path, "r") as file:
         emplist[i]=tmplist
         if emplist[i][0] in phishedemp:
             lst=[emplist[i][0],'YES']
-            worksheet1.write_row('A'+str(i+2), lst)
+            newlst=[ele.replace('_',' ') for ele in lst if ele]
+            worksheet1.write_row('A'+str(i+2), newlst)
             pemp+=1
         else:
             lst=[emplist[i][0],'NO']
-            worksheet1.write_row('A'+str(i+2), lst)
+            newlst=[ele.replace('_',' ') for ele in lst if ele]
+            worksheet1.write_row('A'+str(i+2), newlst)
         i+=1
 totalemp=len(name)
 typelabel=['Phished','Not phished']
 no=[pemp,totalemp-pemp]
-per=[str((pemp/totalemp)*100),str((totalemp-pemp)/totalemp*100)]
+per=[str(round((pemp/totalemp)*100,2)),str(round((totalemp-pemp)/totalemp*100,2))]
 headings2 = ['Type', 'No. of employees','Percentage'] 
-worksheet1.write_row('D1', headings2, bold)
-worksheet1.write_column('D2', typelabel)
-worksheet1.write_column('E2', no)
-worksheet1.write_column('F2', per)
+worksheet1.write_row('M1', headings2, bold)
+worksheet1.write_column('M2', typelabel)
+worksheet1.write_column('N2', no)
+worksheet1.write_column('O2', per)
 
-print ("[+] Generating Pie-Chart")
+worksheet1.set_column(0, 0, 20)
+worksheet1.set_column(12, 12, 12)
+worksheet1.set_column(13, 13, 16)
+worksheet1.set_column(14, 14, 10)
+
+print ("[+] Generating Pie-chart")
 chart = workbook.add_chart({'type': 'pie'})
 chart.add_series({'name':'Percentage Phished', 
-        'categories': ['Sheet1', 1, 3, 2, 3],   
-        'values':     ['Sheet1', 1, 4, 2, 4],
+        'categories': ['Sheet1', 1, 12, 2, 12],   
+        'values':     ['Sheet1', 1, 13, 2, 13],
         'data_labels': {'percentage': True}})
 chart.set_title({'name': 'Percentage Phished'})
 chart.set_style(10)
-worksheet1.insert_chart('D6', chart, {'x_offset': 25, 'y_offset': 10})
+worksheet1.insert_chart('D1', chart, {'x_offset': 20, 'y_offset': 10})
  
 worksheet2 = workbook.add_worksheet() 
 bold = workbook.add_format({'bold': 1}) 
@@ -344,13 +351,28 @@ worksheet2.write_row('A1', headings, bold)
   
 # Write a column of data starting from 
 # A2, B2, C2 respectively. 
+worksheet2.set_column(0, 0, 20)
+worksheet2.set_column(1, 1, 15)
+worksheet2.set_column(4, 4, 13)
+worksheet2.set_column(5, 5, 15)
+worksheet2.set_column(6, 6, 10)
+worksheet2.set_column(7, 7, 10)
+worksheet2.set_column(9, 9, 9)
+worksheet2.set_column(10, 10, 25)
+worksheet2.set_column(11, 11, 20)
+worksheet2.set_column(13, 13, 10)
+worksheet2.set_column(14, 14, 75)
+
+
+
 i=0
 with open("results.txt", "r") as file: 
     emplist = file.readlines()[1:]
     for line in emplist: 
         tmplist = line.strip().split(' ')
         emplist[i]=tmplist
-        worksheet2.write_row('A'+str(i+2), tmplist)
+        newlst=[ele.replace('_',' ') for ele in tmplist if ele]
+        worksheet2.write_row('A'+str(i+2), newlst)
         i+=1
  
 workbook.close()
