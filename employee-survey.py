@@ -69,7 +69,11 @@ with open(pathcsv) as csvfile:
 pass_emp_email = []
 fail_emp_email = []
 for i in range(len(emailID)):
-    if mcq_score[i] == '4.00 / 4':
+    a=mcq_score[i]
+    b,c=a.strip().strip("\"").split("/")
+    outcome=int(float(b)/float(c))
+
+    if outcome == 1:
         pass_emp_email.append(emailID[i].strip("\""))
     else:
         fail_emp_email.append(emailID[i].strip("\""))
@@ -123,5 +127,5 @@ for j in fail_emp_email:
 		smtp.send_message(msg)
 
 width = 169
-printf("\n")
+print("\n")
 print ('Thank you for using Phish-Me-Not'.center(width, '-'))
