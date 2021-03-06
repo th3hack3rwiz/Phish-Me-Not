@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import csv
 import smtplib
+import os
 from email.message import EmailMessage
 from tkinter import *
 from tkinter import filedialog  # import filedialog module
@@ -23,9 +24,38 @@ with open('employee-table.txt', 'r') as employee_table:
             ip.append(employee.strip().split()[2])
             recent_project.append(employee.strip().split()[3])
 
+
+def browseFiles():
+	global pathcsv
+	pathcsv = filedialog.askopenfilename(initialdir = "/", title = "Select a File", filetypes = (("CSV files", "*.csv*"), ("all files", "*.*")))
+	root.destroy()
+
+root = Tk()
+root.title('Select file')
+root.geometry("430x200+630+350")
+bg= PhotoImage(file="background.png")    
+
+#create a canvas
+my_canvas = Canvas(root, width=200, height=100, bd=0, highlightthickness=0)
+my_canvas.pack(fill="both", expand=True)
+
+#set image in canvas
+my_canvas.create_image(0,0, image=bg, anchor="nw")
+  
+# Create a File Explorer label
+#label_file_explorer = Label(root, text = "", width = 100, height = 4, fg = "blue")
+my_canvas.create_text(220,60, text='Choose "Feedback file" Location', font=("Helvetica",18,'bold'), fill="white")
+#label_file_explorer.grid(column = 1, row = 1)
+
+#button_explore = Button(window, text = "Browse Files", command = browseFiles) 
+button_explore=Button(root, text="Browse Files",font=("times",15),width=5,padx=40, pady=10, fg='white', bg='black', bd=0, command=browseFiles)
+button_explore_window = my_canvas.create_window(150,100,anchor='nw', window=button_explore)
+
+root.mainloop()
+
 emailID = []
 mcq_score = []
-with open('Feedbak.csv') as csvfile:
+with open(pathcsv) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
     line_count = 0
     for row in csv_reader:
@@ -39,7 +69,7 @@ with open('Feedbak.csv') as csvfile:
 pass_emp_email = []
 fail_emp_email = []
 for i in range(len(emailID)):
-    if mcq_score[i] == "\"4.00 / 4\"":
+    if mcq_score[i] == '4.00 / 4':
         pass_emp_email.append(emailID[i].strip("\""))
     else:
         fail_emp_email.append(emailID[i].strip("\""))
@@ -59,22 +89,13 @@ for i in pass_emp_email:
 		</body>
 	</html>
 		""".format(name=name[email.index(i)].replace("_"," ")),subtype='html')
-
-	# files = ['phishing_awareness_guide.pdf']
-	# for j in files:
-	# 	with open (j,'rb') as f:
-	# 		file_data = f.read()
-	# 		file_name = f.name
-	# 	#	print(file_type)
-	# 	msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
-
+	
 	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
 		smtp.send_message(msg)
 
 	
 print ("\n[+] Sending awareness email to employeed who failed the test!")
-
 for j in fail_emp_email:
 	print(f'[+] Sending awareness email to: {name[email.index(j)].replace("_"," ")}')	
 	msg = EmailMessage()
@@ -102,4 +123,5 @@ for j in fail_emp_email:
 		smtp.send_message(msg)
 
 width = 169
+printf("\n")
 print ('Thank you for using Phish-Me-Not'.center(width, '-'))
