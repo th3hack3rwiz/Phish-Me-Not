@@ -376,6 +376,44 @@ with open("results.txt", "r") as file:
         i+=1
  
 workbook.close()
+print ("\n[+] Results Generated!")
+print ("\n[+] Sending assessment emails to non-phished employees now!")
+
+# Separating IPs of non-phished employees
+
+not_victims = ip.copy()
+for flag_emp in IP: # iterating through phished employees again
+	if flag_emp in not_victims:
+		not_victims.remove(flag_emp)
+
+for emp in not_victims:
+	print(f'Sending assessment email to: {name[ip.index(emp)].replace("_"," ")}')
+	#print(f'{email[ip.index(emp)].replace("_"," ")}')
+
+	msg = EmailMessage()
+	msg['Subject'] = "URGENT: Phishing Simulation Assessment." #subject
+	msg['From'] = EMAIL_ADDRESS
+	msg['To'] = email[ip.index(emp)]
+	msg.add_alternative("""\
+	<!DOCTYPE html>
+	<html>
+		<body>
+		<p>Dear {name},<br><br><b>We are happy to inform you that you have cleared the first round of employee phishing training assessment.</b><br><br>To further enhance our company’s cyber defences, a phishing email was sent to you. Simulations go beyond phishing awareness guides and training. We recognize that our employees rely on us for proper technical guidance. To evaluate your performance in the recent phishing-simulation assessment kindly fill the following <a href=https://forms.gle/57WRRpFXGZJv66bP9>mandatory form</a>. <b>This assessment will reflect on the bigger picture of your performance.</b><br><br>If you have any questions, concerns, or feedback, you can direct them to your manager or get in touch with me directly.<br><br>Regards,<br><br>th3hack3rwiz<br>Manager<br>HR Head.<br></p>
+		</body>
+	</html>
+		""".format(name=name[ip.index(emp)].replace("_"," ")),subtype='html')
+
+	# files = ['phishing_awareness_guide.pdf']
+	# for j in files:
+	# 	with open (j,'rb') as f:
+	# 		file_data = f.read()
+	# 		file_name = f.name
+	# 	#	print(file_type)
+	# 	msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
+
+	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
+		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
+		smtp.send_message(msg)
 
 print ("\n[~] Thank you for using Phish-Me-Not!")
 
