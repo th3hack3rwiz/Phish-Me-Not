@@ -254,12 +254,21 @@ for flag_emp in IP:
  		victims.append(name[ip.index(flag_emp)].replace("_"," "))
 print ("\n[+] The following employees were phished!")
 print ("\n".join(victims))
-print ("\n")
 
+data = ["Victim_Employee","IP","Port","Country","State","City","Latitude","Longitude","Zip_Code","Time_Zone","ISP","Domain","Is_Proxy","Proxy_Type","Geo_URL"]
+phi_emp_data= []
+email_data=str()
+dictionary = dict()
 for i in range(len(victims)):
 	victims[i]=victims[i].strip()
 	print (f'[+] Sending awareness mail to {victims[i]}')
-
+	phi_emp_data.extend([Victim_Employee[Victim_Employee.index(victims[i].replace(" ","_"))],IP[Victim_Employee.index(victims[i].replace(" ","_"))],Port[Victim_Employee.index(victims[i].replace(" ","_"))],Country[Victim_Employee.index(victims[i].replace(" ","_"))],State[Victim_Employee.index(victims[i].replace(" ","_"))],City[Victim_Employee.index(victims[i].replace(" ","_"))],Latitude[Victim_Employee.index(victims[i].replace(" ","_"))],Longitude[Victim_Employee.index(victims[i].replace(" ","_"))],Zip_Code[Victim_Employee.index(victims[i].replace(" ","_"))],Time_Zone[Victim_Employee.index(victims[i].replace(" ","_"))],ISP[Victim_Employee.index(victims[i].replace(" ","_"))],Domain[Victim_Employee.index(victims[i].replace(" ","_"))],Is_Proxy[Victim_Employee.index(victims[i].replace(" ","_"))],Proxy_Type[Victim_Employee.index(victims[i].replace(" ","_"))],Geo_URL[Victim_Employee.index(victims[i].replace(" ","_"))]])
+	#print(f'{phi_emp_data}')
+	for j in data:
+		dictionary[j]=phi_emp_data[data.index(j)]
+	for j in dictionary.items():
+		email_data+="\n"+str(j).replace(",",":").strip("(").strip(")").replace("\'","").replace("_"," ")+"<br>"
+	#print(email_data)	
 	msg = EmailMessage()
 	msg['Subject'] = "URGENT: YOU HAVE BEEN PHISHED!" #subject
 	msg['From'] = EMAIL_ADDRESS
@@ -268,10 +277,10 @@ for i in range(len(victims)):
 	<!DOCTYPE html>
 	<html>
 		<body>
-		<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>HR Head</p>
+		<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i><b>With your one wrong click, the following data was leaked.<br><br>{data}<br><br></b>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>HR Head</p>
 		</body>
 	</html>
-		""".format(name=victims[i]),subtype='html')
+		""".format(name=victims[i],data=email_data),subtype='html')
 
 	files = ['phishing_awareness_guide.pdf']
 	for j in files:
@@ -284,7 +293,9 @@ for i in range(len(victims)):
 	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
 		smtp.send_message(msg)
-
+	email_data=""
+	dictionary.clear()
+	phi_emp_data.clear()
 
 print ("\n[+] Generating Results")
 workbook = xlsxwriter.Workbook('results.xlsx') 
@@ -408,7 +419,7 @@ for flag_emp in IP: # iterating through phished employees again
 		not_victims.remove(flag_emp)
 
 for emp in not_victims:
-	print(f'Sending assessment email to: {name[ip.index(emp)].replace("_"," ")}')
+	print(f'[+] Sending assessment email to: {name[ip.index(emp)].replace("_"," ")}')
 	#print(f'{email[ip.index(emp)].replace("_"," ")}')
 
 	msg = EmailMessage()
