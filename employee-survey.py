@@ -78,7 +78,7 @@ for i in range(len(emailID)):
     else:
         fail_emp_email.append(emailID[i].strip("\""))
 
-print ("[+] Sending appreciation emails!")
+print ("\n[+] Sending appreciation emails!")
 for i in pass_emp_email:
 	print (f'[+] Sending appreciation email to: {name[email.index(i)].replace("_"," ")} ')
 	msg = EmailMessage()
