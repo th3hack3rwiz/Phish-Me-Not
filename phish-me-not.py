@@ -142,7 +142,7 @@ else:
 
 	def browseFiles():
 	    global path
-	    path = filedialog.askopenfilename(initialdir = "/", title = "Select a File", filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
+	    path = filedialog.askopenfilename(initialdir = os.getcwd(), title = "Select a File", filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
 	    root.destroy()
 
 
@@ -208,46 +208,47 @@ for emp in range(len(email)):
 		smtp.send_message(msg)
 
 subprocess.call("YYYY")
+IP = []
+Port = []
+Country = []
+State = []
+City = []
+Latitude = []
+Longitude = []
+Zip_Code = []
+Time_Zone = []
+ISP = []
+Domain = []
+Is_Proxy = []
+Proxy_Type = []
+Victim_Employee = []
+Geo_URL = []
+try:
+	with open ("results.txt","r") as results_table:
+		for j in results_table:
+			result_data=results_table.readlines()[:]
+			for phished_employee in result_data:
+				try:
+					Victim_Employee.append(phished_employee.strip().split()[0])
+					IP.append(phished_employee.strip().split()[1])
+					Port.append(phished_employee.strip().split()[2])
+					Country.append(phished_employee.strip().split()[3])
+					State.append(phished_employee.strip().split()[4])
+					City.append(phished_employee.strip().split()[5])
+					Latitude.append(phished_employee.strip().split()[6])
+					Longitude.append(phished_employee.strip().split()[7])
+					Zip_Code.append(phished_employee.strip().split()[8])
+					Time_Zone.append(phished_employee.strip().split()[9])
+					ISP.append(phished_employee.strip().split()[10])
+					Domain.append(phished_employee.strip().split()[11])
+					Is_Proxy.append(phished_employee.strip().split()[12])
+					Proxy_Type.append(phished_employee.strip().split()[13])
+					Geo_URL.append(phished_employee.strip().split()[14])
+				except IndexError:
+					print ("[-] Some information could not be fetched...\nYour API calls have exhausted!")
+except FileNotFoundError:
+	pass
 
-with open ("results.txt","r") as results_table:
-	IP = []
-	Port = []
-	Country = []
-	State = []
-	City = []
-	Latitude = []
-	Longitude = []
-	Zip_Code = []
-	Time_Zone = []
-	ISP = []
-	Domain = []
-	Is_Proxy = []
-	Proxy_Type = []
-	Victim_Employee = []
-	Geo_URL = []
-
-
-	for j in results_table:
-		result_data=results_table.readlines()[:]
-		for phished_employee in result_data:
-			try:
-				Victim_Employee.append(phished_employee.strip().split()[0])
-				IP.append(phished_employee.strip().split()[1])
-				Port.append(phished_employee.strip().split()[2])
-				Country.append(phished_employee.strip().split()[3])
-				State.append(phished_employee.strip().split()[4])
-				City.append(phished_employee.strip().split()[5])
-				Latitude.append(phished_employee.strip().split()[6])
-				Longitude.append(phished_employee.strip().split()[7])
-				Zip_Code.append(phished_employee.strip().split()[8])
-				Time_Zone.append(phished_employee.strip().split()[9])
-				ISP.append(phished_employee.strip().split()[10])
-				Domain.append(phished_employee.strip().split()[11])
-				Is_Proxy.append(phished_employee.strip().split()[12])
-				Proxy_Type.append(phished_employee.strip().split()[13])
-				Geo_URL.append(phished_employee.strip().split()[14])
-			except IndexError:
-				print ("[-] Some information could not be fetched...\nYour API calls have exhausted!")
 victims = []
 for flag_emp in IP:
 	if flag_emp in ip:
@@ -374,18 +375,19 @@ worksheet2.set_column(11, 11, 20)
 worksheet2.set_column(13, 13, 10)
 worksheet2.set_column(14, 14, 75)
 
-
-
 i=0
-with open("results.txt", "r") as file: 
-    emplist = file.readlines()[1:]
-    for line in emplist: 
-        tmplist = line.strip().split(' ')
-        emplist[i]=tmplist
-        newlst=[ele.replace('_',' ') for ele in tmplist if ele]
-        worksheet2.write_row('A'+str(i+2), newlst)
-        i+=1
- 
+try:
+	with open("results.txt", "r") as file: 
+	    emplist = file.readlines()[1:]
+	    for line in emplist: 
+	        tmplist = line.strip().split(' ')
+	        emplist[i]=tmplist
+	        newlst=[ele.replace('_',' ') for ele in tmplist if ele]
+	        worksheet2.write_row('A'+str(i+2), newlst)
+	        i+=1
+except FileNotFoundError:
+	pass
+
 workbook.close()
 print ("\n[+] Results Generated!")
 print ("\n[+] Sending assessment emails to non-phished employees now!")
