@@ -55,17 +55,20 @@ root.mainloop()
 
 emailID = []
 mcq_score = []
-with open(pathcsv) as csvfile:
-    csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            line_count += 1
-            continue
-        else:
-            emailID.append(row[1])
-            mcq_score.append(row[2])
-
+try:
+	with open(pathcsv) as csvfile:
+	    csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	    line_count = 0
+	    for row in csv_reader:
+	        if line_count == 0:
+	            line_count += 1
+	            continue
+	        else:
+	            emailID.append(row[1])
+	            mcq_score.append(row[2])
+except NameError:
+    print ("[+] Feedback file not selected!")
+    exit()
 pass_emp_email = []
 fail_emp_email = []
 for i in range(len(emailID)):
