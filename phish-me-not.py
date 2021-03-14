@@ -9,10 +9,12 @@ from tkinter import filedialog  # import filedialog module
 import xlsxwriter
 
 subprocess.call("XXXX")
-
-with open ("ngrokURL","r") as f:	# reading victim_url to include in the mail
-	victim_url = f.read()
-
+	
+try:
+	with open ("ngrokURL","r") as f:	# reading victim_url to include in the mail
+		victim_url = f.read()
+except FileNotFoundError:
+	exit()
 EMAIL_ADDRESS = os.environ.get('EMAILID')
 EMAIL_PASS = os.environ.get('PASS')
 
@@ -249,13 +251,19 @@ try:
 except FileNotFoundError:
 	pass
 
-victims = []
-for index,flag_emp in enumerate(IP):
-	if flag_emp in ip:
- 		victims.append(name[ip.index(flag_emp)].replace("_"," "))
-print ("\n[+] The following employees were phished!")
-print (str(index+1)+")","\n".join(victims))
-
+try:
+	victims = []
+	vcount=0
+	print ("\n[+] The following employees were phished!")
+	for index,flag_emp in enumerate(IP):
+		if flag_emp in ip:
+	 		victims.append(name[ip.index(flag_emp)].replace("_"," "))
+	for i in range(len(victims)):
+		vcount+=1
+		print(str(vcount)+") "+victims[i])
+	print ("\n")
+except NameError:
+	pass
 data = ["Victim_Employee","IP","Port","Country","State","City","Latitude","Longitude","Zip_Code","Time_Zone","ISP","Domain","Is_Proxy","Proxy_Type","Geo_URL"]
 phi_emp_data= []
 email_data=str()
@@ -332,9 +340,9 @@ with open(path, "r") as file:
             worksheet1.write_row('A'+str(i+2), newlst)
         i+=1
 totalemp=len(name)
-typelabel=['Phished','Not phished']
-no=[pemp,totalemp-pemp]
-per=[str(round((pemp/totalemp)*100,2)),str(round((totalemp-pemp)/totalemp*100,2))]
+typelabel=['Not phished','Phished']
+no=[totalemp-pemp,pemp]
+per=[str(round((totalemp-pemp)/totalemp*100,2)),str(round((pemp/totalemp)*100,2))]
 headings2 = ['Type', 'No. of employees','Percentage'] 
 worksheet1.write_row('M1', headings2, bold)
 worksheet1.write_column('M2', typelabel)
