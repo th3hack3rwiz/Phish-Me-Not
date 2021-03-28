@@ -21,24 +21,108 @@ python3 phish-me-not.py
 
 ### Implementation
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/A.PNG)
+#### Press 'n' to select an employee-table: 
 
-#### The "Employee-Specific" Phishing Email: 
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/1.png)
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/phishing-email.PNG)
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/2.1.png)
 
-#### The employee who falls prey to the phishing attack is redirected from a malicious page to the following image:
+#### OR Press 'y' to create a new employee table:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/2.2.PNG)
+
+#### Fill the details of each employee:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/2.3.png)
+
+#### The "employee-specific" phishing emails are sent to all employees: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/3.png)
+
+#### Behold, the phishing mail:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/4.png)
+
+#### Employees who falls prey to the spear-phishing attack are redirected from a malicious page to the following image:
 
 ![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/phishing-redirect.PNG)
 
-#### We refresh the logs to check for any new victim employees:
+#### We refresh the logs to check for any new victim employee's entry and fetch their private information:
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/B.PNG)
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/6.png)
 
-#### The employees who fall prey to this simulated attack are then sent a "phishing awareness email":
+#### The victim-employees are then sent a "phishing awareness email":
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/C.PNG)
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/7a.png)
 
 #### The Awareness Email:
 
-![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/awareness-email.PNG)
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/7b.png)
+
+#### Results:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/7c%20-%20Copy.png)
+
+#### Pie-Chart:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.0.png)
+
+#### Result-Table:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.1.png)
+
+#### A mandatory assessment quiz link (a google form in this case) is then embedded in all the assessment emails: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.2.png)
+
+#### Assessment emails are then sent to those employees who did not fall prey to the simulated spear-phishing attack:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.4.png)
+
+#### Non-phished employees are required to take a mandatory quiz:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.6.png)
+
+#### The mandatory quiz: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.7.png)
+
+#### Responses of employees are then extracted in a .csv file:
+
+##### Step 1:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.8.png)
+
+##### Step 2:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/8.9.png)
+
+##### Step 3:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.0.png)
+
+##### Step 4:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.1.png)
+
+#### The .csv file is then fed to Phish-Me-Not for evaluation of employees:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.4.png)
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.5.png)
+
+#### Scores are evaluated: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.6.png)
+
+#### Appreciation and awareness emails are then sent respectively to the employees based on their performance in the assessment quiz: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/9.7.png)
+
+#### Appreciation email: 
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/25b.png)
+
+#### Awareness email:
+
+![](https://th3hack3rwiz.github.io/images/Phish-Me-Not!/25a.png)
