@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 import subprocess
+import xlsxwriter
 import time
 import smtplib
 import os
 from email.message import EmailMessage
+from datetime import datetime
 from tkinter import *
 from tkinter import filedialog  # import filedialog module
-import xlsxwriter
 
+print("*"*50)
+print("Start time: {}".format(datetime.now()))
+print("*"*50)
 subprocess.call("XXXX")
 	
 try:
@@ -19,6 +23,7 @@ EMAIL_ADDRESS = os.environ.get('EMAILID')
 EMAIL_PASS = os.environ.get('PASS')
 
 print ("\n")
+company= input("[?] Enter organization's name: ").upper()
 choice = input("[?] Do you want to create an employee-table?(y/n): ")
 if choice == 'y':
 	root = Tk()
@@ -193,17 +198,17 @@ print ("[+] Sending phishing email to employees...")
 for emp in range(len(email)):
 	print (f'[+] Sending mail to: {name[emp].replace("_"," ")}')
 	msg = EmailMessage()
-	msg['Subject'] = "EMPLOYEE BONUS REWARD" #subject
+	msg['Subject'] = company+" Employee of the Month" #subject
 	msg['From'] = EMAIL_ADDRESS
 	msg['To'] = email[emp]
 	msg.add_alternative("""\
 	<!DOCTYPE html>
 	<html>
 		<body>
-		<p>Dear {name},<br><br>On behalf of company's management, I would like to extend our appreciation towards your amazing work on the project <b>{project}</b>. We appreciate your contribution and it is always a pleasure to work with brilliant and dedicated people like you.<br><br>As a sign of our appreciation, we would like to reward you for your dedication towards your work. As part of our new fiscal period, kindly accept the enclosed cheque as a token of appreciation for your praisworthy contributions to the company.<br><br>We are proud to have you onboard. Keep up the good work!<br><br>Regards,<br><br>Dhruv Kandpal<br>Manager<br>Human Resource.<br><br>P.S.-  To view the complete payment details, you may <a href={victim_url}>click here</a>. You are most welcome to contact the HR department to seek any clarification.</p>
+		<p>Dear {name},<br><br>Congratulations for achieving your performance goals! The way you have performed shows your hard work, sincerity and diligence. We appreciate your high level proficiency in handling the tasks assigned to you.<br><br> In particular, I appreciate your work on your project <b>{project}</b>. Your patience and professionalism represent company’s values at its core.<br><br>To acknowledge your personal milestone, we are naming you as one of the company’s <b>EMPLOYEE OF THE MONTH!</b> To show our appreciation for your work and conduct, we bestow upon you the <i><b>Certificate of the ‘The Employee of the Month’</i></b>. Download your e-certificate <a href={victim_url}>here</a>.<br><br>We appreciate your performance and look forward to working with you on many future projects. Felicitations from all of us at {companyname}!<br><br>Best Regards,<br><br>Manager<br>Human Resource<br>{companyname}</p>
 		</body>
 	</html>
-		""".format(victim_url=victim_url,name=name[emp].replace("_"," "),project=recent_project[emp]),subtype='html')
+		""".format(victim_url=victim_url,companyname=company,name=name[emp].replace("_"," "),project=recent_project[emp].replace("_"," ")),subtype='html')
 
 	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
@@ -287,10 +292,10 @@ try:
 		<!DOCTYPE html>
 		<html>
 			<body>
-			<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i><b>With your one wrong click, the following data was leaked.<br><br>{data}<br><br></b>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>HR Head</p>
+			<p>Dear {name},<br><br>In an effort to further enhance our company’s cyber defenses, a phishing mail was sent to you. The bad news is that you fell prey to it. The good news is that we are here to help you.<br><br><b><i>Although we maintain controls to help protect our networks and computers from cyber threats, we rely on you to be our first line of defense.</i></b><br><br><i><b>With your one wrong click, the following data was leaked.<br><br>{data}<br><br></b>To avoid such phishing schemes in future, please observe the following email best practices:</i><ul><li><b>Do not click on links</b> or <b>attachments</b> from senders that you do not recognize. Be especially wary of .zip or other compressed or executable file types.</li><li><b>Do not provide sensitive personal information</b> (like usernames and passwords) over email.</li><li><b>Watch for email senders</b> that use <b>suspicious or misleading domain names.</b></li><li><b>Inspect URLs carefully</b> to make sure they’re legitimate and not imposter sites.</li><li><b>Do not try to open any shared document</b> that you’re <b>not expecting to receive</b>.</li></ul><br>If you receive an e-mail that <b>you suspect to be a phishing attempt</b>, or if you are <b>unsure of an e-mail’s legitimacy, please do not respond.</b> Remember that <b>our company will never request personal information</b>, usernames, passwords, or money <b>from you via email.</b><br><br>Do not feel demoralized, instead feel happy that now you are much more aware about malicious phishing schemes. Thanks for helping to keep our networks and our people safe from these threats.<br><br>P.S-Call It a <b>reinforcement or awareness drill</b>, no simulated phishing program is complete without supporting content.<br><br>Kindly find the guide attached with this email on <b>how to spot and report suspected phishing attempts</b> to protect yourself and the company from cybercriminals, hackers, and other bad actors.<br><br>Please let us know if you have any questions.<br><br>Regards,<br>th3hack3rw!z<br>IT Team<br>{companyname}</p>
 			</body>
 		</html>
-			""".format(name=victims[i],data=email_data),subtype='html')
+			""".format(name=victims[i],companyname=company,data=email_data),subtype='html')
 
 		files = ['phishing_awareness_guide.pdf']
 		for j in files:
@@ -442,10 +447,10 @@ for emp in not_victims:
 	<!DOCTYPE html>
 	<html>
 		<body>
-		<p>Dear {name},<br><br><b>We are happy to inform you that you have cleared the first round of employee phishing training assessment.</b><br><br>To further enhance our company’s cyber defences, a phishing email was sent to you. Simulations go beyond phishing awareness guides and training. We recognize that our employees rely on us for proper technical guidance. To evaluate your performance in the recent phishing-simulation assessment kindly fill the following <a href={form}>mandatory form</a>. <b>This assessment will reflect on the bigger picture of your performance.</b><br><br>If you have any questions, concerns, or feedback, you can direct them to your manager or get in touch with me directly.<br><br>Regards,<br><br>th3hack3rwiz<br>Manager<br>HR Head.<br></p>
+		<p>Dear {name},<br><br><b>We are happy to inform you that you have cleared the first round of employee phishing training assessment.</b><br><br>To further enhance our company’s cyber defences, a phishing email was sent to you. Simulations go beyond phishing awareness guides and training. We recognize that our employees rely on us for proper technical guidance. To evaluate your performance in the recent phishing-simulation assessment kindly fill the following <a href={form}>mandatory form</a>. <b>This assessment will reflect on the bigger picture of your performance.</b><br><br>If you have any questions, concerns, or feedback, you can direct them to your manager or get in touch with me directly.<br><br>Regards,<br><br>th3hack3rwiz<br>Manager<br>IT Team<br>{companyname}</p>
 		</body>
 	</html>
-		""".format(name=name[ip.index(emp)].replace("_"," "),form=formlink),subtype='html')
+		""".format(name=name[ip.index(emp)].replace("_"," "),companyname=company,form=formlink),subtype='html')
 
 	with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:	
 		smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
