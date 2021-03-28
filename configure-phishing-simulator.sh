@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 rm -f results.txt > /dev/null 2>&1
 rm -f ips > /dev/null 2>&1
 rm -f results.xlsx > /dev/null 2>&1
