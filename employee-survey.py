@@ -67,7 +67,10 @@ try:
 	            emailID.append(row[1])
 	            mcq_score.append(row[2])
 except NameError:
-    print ("[+] Feedback file not selected!")
+    print ("[!] Feedback file not selected!\n[-] Exiting...")
+    width = 169
+    print("\n")
+    print ('Thank you for using Phish-Me-Not!'.center(width, '-'))
     exit()
 pass_emp_email = []
 fail_emp_email = []
